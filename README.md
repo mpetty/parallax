@@ -4,7 +4,7 @@ Library for simple parallax effects.
 
 ## Installation
 
-Add to your project's `package.json` file, like:
+Add to your project's `package.json` file
 
 ```bash
 npm install mpetty/parallax
@@ -14,10 +14,4 @@ npm install mpetty/parallax
 
 ```javascript
 $('[data-parallax]').parallax(options);
-```
-
-## Options available
-
-```javascript
-
 ```
