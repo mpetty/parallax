@@ -6,51 +6,39 @@
  * 	gulp or gulp <task>
  */
 
-	var
-		del = require('del'),
-		gulp = require('gulp'),
-		$ = require('gulp-load-plugins')({ camelize: true }),
-        paths = {
-            js_source : 'src/jquery.parallax.js',
-            js_dest : 'jquery.parallax.min.js'
-        };
+    const gulp = require('gulp');
 
-/*
- * ================================
- *  Javascript
- * ================================
- */
+    const $ = require('gulp-load-plugins')({ camelize: true });
 
-	gulp.task('js',  function() {
-		del([paths.js_dest], {force: true});
+    const paths = {
+        js_source : 'src/jquery.parallax.js',
+        js_dest : 'jquery.parallax.min.js'
+    };
 
+    const uglifyOptions = {
+        compress: {
+            drop_console: true
+        },
+        output: {
+            comments: /^!|@preserve|@license|@cc_on/i
+        },
+    };
+
+    function jsTask(done) {
 		gulp.src(paths.js_source)
 			.pipe($.jshint())
-			.pipe($.jshint.reporter('jshint-stylish'))
             .pipe($.concat({path: paths.js_dest}))
-			.pipe($.uglify({preserveComments: 'license'}))
-			.pipe(gulp.dest('.'))
-			.pipe($.notify('Successfully updated JS'));
+			.pipe($.uglify(uglifyOptions))
+            .on('error', function(e) { console.error(e.toString()); })
+			.pipe(gulp.dest('.'));
 
-		return gulp;
-	});
+        done();
+    }
 
-/*
- * ================================
- *  Watch
- * ================================
- */
+    function watchTask(done) {
+		gulp.watch(paths.js_source, gulp.parallel(jsTask));
 
-	gulp.task('watch', function() {
-		gulp.watch(paths.js_source, ['js']);
-		return gulp;
-	});
+    };
 
-/*
- * ================================
- *  	Default
- * ================================
- */
-
-	gulp.task('default', ['js']);
-
+    exports.watch = watchTask;
+    exports.default = gulp.parallel(jsTask);
