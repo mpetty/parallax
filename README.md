@@ -7,7 +7,7 @@ Library for simple parallax effects.
 Add to your project's `package.json` file, like:
 
 ```bash
-    npm install mpetty/parallax
+npm install mpetty/parallax
 ```
 
 ## Usage
