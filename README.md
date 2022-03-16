@@ -2,19 +2,12 @@
 
 Library for simple parallax effects.
 
-## Bower Installation
+## Installation
 
-Add to your project's `bower.json` file, like:
+Add to your project's `package.json` file, like:
 
-```json
-{
-  "name": "my-project",
-  "version": "1.0.0",
-  "dependencies": {
-    "jquery": "1.11.0",
-    "fillselect": "git@github.com:mpetty/parallax"
-  }
-}
+```bash
+    npm install mpetty/parallax
 ```
 
 ## Usage
